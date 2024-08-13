@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 const connectDB = async () => {
   try {
     console.log("connecting");
-    await mongoose.connect("mongodb+srv://root:15root@cluster0.nezzouv.mongodb.net/classroom");
+    await mongoose.connect(process.env.MONGO_URI);
     console.log('MongoDB connected');
   } catch (err) {
     console.error(err.message);

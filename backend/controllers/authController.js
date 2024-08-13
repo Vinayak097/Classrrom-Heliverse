@@ -39,17 +39,13 @@ export async function login(req, res) {
     }
 
     const token = generateToken({email,role:user.role});
-
+    console.log(token) 
     // Set token in a cookie
-    res.cookie('authToken', token, {
-      // httpOnly: true, // Helps prevent XSS attacks
-    //  secure: process.env.NODE_ENV === 'production', // Only set cookie over HTTPS
-      maxAge: 3600000, // 1 hour
-    });
+    
 
-    res.status(200).json({ msg: 'Login successful' });
+    return res.status(200).json({ msg: 'Login successful' , token:token,user:{email:email,role:user.role,_id:user._id}});
   } catch (error) {
     console.error('Error during login:', error);
-    res.status(400).json({ errors: error.message });
+    return res.status(400).json({ errors: error.message });
   }
 }

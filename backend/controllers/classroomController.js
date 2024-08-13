@@ -4,7 +4,7 @@ import User from '../models/user.js';
 export const createClassroom = async (req, res) => {
   try {
     const { name, schedule } = req.body;
-    console.log("entered in createclassroom")
+   
     // Validate the schedule and other inputs here if needed
 
     const newClassroom = new Classroom({ name, schedule });
@@ -19,7 +19,7 @@ export const createClassroom = async (req, res) => {
 
 export async function assignTeacher(req, res) {
   const { id } = req.params;
-  console.log('enter ainsteacher')
+ 
   const { teacherId } = req.body;
   const classroom = await Classroom.findById(id);
   classroom.teacher = teacherId;
@@ -28,7 +28,9 @@ export async function assignTeacher(req, res) {
 }
 
 export async function getClassrooms(req, res) {
-  const classrooms = await Classroom.find().populate('teacher');
+  const classrooms = await Classroom.find().populate({ path: 'teacher',
+    select: '-password' // Excludes the password field from the populated teacher
+  });
   res.status(200).json(classrooms);
 }
 
