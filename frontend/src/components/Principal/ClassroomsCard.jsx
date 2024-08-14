@@ -3,16 +3,16 @@ import React from 'react'
 function ClassroomsCard({name,teacher,students}) {
   let count=students.length;
   return (
-    <div className="card bg-base-100 w-96 shadow-xl">
+    <div className="card bg-base-100 min-w-72  shadow-xl">
   <div className="card-body">
     <h2 className="card-title">{name? name:"Card title!"}</h2>
-
-    <div className='flex justify-between'>
-      <p>Teacher: </p>
-      <h2>{teacher.email?teacher.email:"None"}</h2>      
+    
+    <div className='flex justify-between '>
+      <p className='mr-4'>Teacher: </p>
+      <h2>{teacher?.email ||"None"}</h2>      
     </div>
     <div className='flex justify-between'>
-      <p>Students :  </p>
+      <p className='mr-4'>Students :  </p>
       <h2>{count? count:0}</h2>      
     </div>
     

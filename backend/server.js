@@ -9,6 +9,8 @@ import cors from 'cors'
 import { authenticateToken, authorizeRoles } from './middleware/authMiddleware.js';
 import studentRoutes from './routes/student.js'
 import timetableRoutes from './routes/timetableRoutes.js'
+import teachersRoutes from './routes/teacher.js';
+import { classroomdetail } from './controllers/classroomController.js';
 
 const app = express();
 
@@ -35,6 +37,8 @@ app.use('/api/users', [authenticateToken, authorizeRoles(['Principal', 'Teacher'
 app.use('/api/classrooms', [authenticateToken, authorizeRoles(['Principal', 'Teacher'])], classroomRoutes);
 app.use('/api/students', authenticateToken, studentRoutes); // Add student routes
 app.use('/api/timetables', [authenticateToken, authorizeRoles(['Teacher','Principal'])], timetableRoutes);
+app.use('/api/teachers', teachersRoutes);
+app.use('/api/classroom-detail/:id',authenticateToken,classroomdetail)
 
 
 

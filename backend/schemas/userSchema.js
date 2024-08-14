@@ -1,6 +1,7 @@
 import { z } from 'zod';
 const userSchema = z.object({
   email: z.string().email(),
+  name:z.string().nonempty(),
   password: z.string().min(4),
   role: z.enum(['Principal', 'Teacher', 'Student']),
   classroom: z.string().optional(),

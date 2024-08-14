@@ -14,7 +14,7 @@ const router = express.Router();
 router.post('/', authenticateToken, createTimetable);
 
 
-router.get('/classroom/:classroomId', authenticateToken, getTimetable);
+router.get('/classroom/:id', authenticateToken, getTimetable);
 
 
 router.put('/classroom/:classroomId', authenticateToken, updateTimetable);

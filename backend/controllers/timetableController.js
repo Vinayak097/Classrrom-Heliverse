@@ -2,7 +2,8 @@
 
 import Classroom from '../models/Classroom.js';
 import Timetable from '../models/Timetable.js';
-import User from '../models/user.js';
+import User from '../models/User.js';
+
 export const createTimetable = async (req, res) => {
   try {
     const { classroomId, subject, periods } = req.body;
@@ -45,22 +46,28 @@ export const createTimetable = async (req, res) => {
 
 export const getTimetable = async (req, res) => {
   try {
-    const { classroomId } = req.params;
-    const teacherId = req.user.id; // Get the authenticated teacher's ID
-
-    // Check if the teacher is assigned to the classroom
+    const { id } = req.params;
+    const teacherId = req.user.id; 
+    console.log("teacherId ", teacherId,id);
+    if(req.user.role==="Principal"){
+      const timetable = await Timetable.findOne({ classroom: id });
+      return timetable;
+    }
+    
     const teacher = await User.findById(teacherId);
-    if (!teacher || teacher.classroom.toString() !== classroomId) {
+    
+    console.log(teacher)
+    if (!teacher || teacher.classroom.toString() !== id) {
       return res.status(403).json({ message: 'Unauthorized to access timetable for this classroom' });
     }
 
     // Get the timetable
-    const timetable = await Timetable.findOne({ classroom: classroomId });
+    const timetable = await Timetable.findOne({ classroom: id });
     if (!timetable) return res.status(404).json({ message: 'Timetable not found' });
 
-    res.status(200).json(timetable);
+    return res.status(200).json(timetable);
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    return res.status(500).json({ error: error.message });
   }
 };
 

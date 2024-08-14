@@ -1,4 +1,6 @@
-import User from "../models/user.js";
+import User from "../models/User.js";
+
+
 
 export async function getUsers(req, res) {
   const users = await User.find();
@@ -6,14 +8,30 @@ export async function getUsers(req, res) {
 }
 
 export async function updateUser(req, res) {
-  const { id } = req.params;
+  try{
+    const { id } = req.params;
   const updates = req.body;
   const user = await User.findByIdAndUpdate(id, updates, { new: true });
-  res.status(200).json(user);
+  return res.status(200).json(user);
+
+  }catch(e){
+    console.log(e.message , " error");
+    return res.status(401).json({error:e,message:"Internal server error"});
+
+  }
+  
 }
 
 export async function deleteUser(req, res) {
-  const { id } = req.params;
-  await User.findByIdAndDelete(id);
-  res.status(204).send();
+  try{
+    const { id } = req.params;
+    await User.findByIdAndDelete(id);
+  return res.status(200).json({message:"deleted succussfully"});
+
+  }catch(e){
+    console.log(e.message , " error");
+    return res.status(401).json({error:e,message:"Internal server error"});
+
+  }
+  
 }

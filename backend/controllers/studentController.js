@@ -1,5 +1,5 @@
 import Classroom  from '../models/Classroom.js';
-import User from '../models/user.js';
+import User from '../models/User.js';
 import Timetable from '../models/Timetable.js';
  
 
