@@ -23,19 +23,14 @@ app.use(cors({
   allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true // Allows cookies to be sent and received
 }));
-app.get('/test',authenticateToken, (req, res) => {
-  res.cookie('testCookie', 'testValue', {
-    httpOnly: true,
-    secure: process.env.NODE_ENV === 'production',
-    sameSite: 'None',
-  });
-  res.send('Cookie is set');
-});
 
+app.get('/',(res)=>{
+  res.set('Hello from server');
+})
 app.use('/api/auth', authRoutes);
 app.use('/api/users', [authenticateToken, authorizeRoles(['Principal', 'Teacher'])], userRoutes);
 app.use('/api/classrooms', [authenticateToken, authorizeRoles(['Principal', 'Teacher'])], classroomRoutes);
-app.use('/api/students', authenticateToken, studentRoutes); // Add student routes
+app.use('/api/students', authenticateToken, studentRoutes); 
 app.use('/api/timetables', [authenticateToken, authorizeRoles(['Teacher','Principal'])], timetableRoutes);
 app.use('/api/teachers', teachersRoutes);
 app.use('/api/classroom-detail/:id',authenticateToken,classroomdetail)
