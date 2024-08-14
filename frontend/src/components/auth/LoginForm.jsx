@@ -94,7 +94,7 @@ const Login = () => {
           <button type='submit' className=" btn btn-outline w-full ">
             {loading?<span className="loading loading-infinity loading-xs"></span>:"Login"}
           
-            Login</button>
+            </button>
         </form>
       </div>
     </div>
