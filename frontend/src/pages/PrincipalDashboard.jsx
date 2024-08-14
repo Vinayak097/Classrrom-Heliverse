@@ -39,10 +39,10 @@ const PrincipalDashboard = () => {
     <div className="container mx-auto p-4">
       <div className='flex justify-between'>
       <h1 className="text-2xl font-bold mb-4">Principal Dashboard</h1>
-      <div className='flex gap-4'>
-        <a href="#class">CreateClass</a>
-        <a href="#list" className='cursor-pointer'>Teachers/Students</a>
-        <a href="#adduser" className='cursor-pointer'>create account</a>
+      <div className='flex gap-4 '>
+        <a href="#class" className='cursor-pointer hover:text-lg transition-all'>CreateClass</a>
+        <a href="#list" className='cursor-pointer hover:text-lg transition-all'>Teachers/Students</a>
+        <a href="#adduser" className='cursor-pointer hover:text-lg transition-all'>create account</a>
 
       </div>
 
