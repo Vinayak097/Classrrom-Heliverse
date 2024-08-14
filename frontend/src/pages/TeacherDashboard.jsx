@@ -9,12 +9,12 @@ function TeacherDashboard() {
   const navigate=useNavigate()
   const teacher=useRecoilValue(authState);
   const [message,setmessage]=useState();
-  console.log(student);
+  console.log(teacher);
   useEffect(()=>{
-    if(!student){
+    if(!teacher){
       navigate("/")
     }
-    if(!student?.classroom){
+    if(!teacher?.classroom){
       setmessage("please ask to add in classroom");
     }
 
