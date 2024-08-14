@@ -9,6 +9,7 @@ const RegisterForm = ({header}) => {
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState('');
   const [role,setrole]=useState('Teacher');
+  const [loading,setloading]=useState(false);
 
 
   
@@ -18,6 +19,7 @@ const RegisterForm = ({header}) => {
     e.preventDefault();
 
     try {
+      setloading(true);
       const response = await axios.post(`${backend_url}/api/auth/register`, {
         email,
         password,
@@ -34,12 +36,13 @@ const RegisterForm = ({header}) => {
         setSuccess('Teacher registered successfully!');
 
       }
-     
+      setloading(false);
       setEmail('');
       setPassword('');
       setName('');
       setError('');
     } catch (err) {
+      setloading(false);
       setError(err.response?.data?.message || 'Something went wrong!');
     }
   };
@@ -93,9 +96,9 @@ const RegisterForm = ({header}) => {
         </div>
         <button
           type="submit"
-          className="w-full bg-indigo-600 text-white px-4 py-2 rounded-md shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-        >
-          Register Teacher
+          className="w-full flex items-center justify-center bg-indigo-600 text-white px-4 py-2 rounded-md shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+        >{loading? <span className="loading loading-infinity loading-xs"></span>:
+          'Register Teacher'}
         </button>
       </form>
     </div>

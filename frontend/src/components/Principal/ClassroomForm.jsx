@@ -106,7 +106,7 @@ const CreateClassroomForm = () => {
           />
         </div>
         <div className="mb-4">
-          <label className="block text-sm font-medium mb-1" htmlFor="name"> Assign Teacher </label>
+          <label className="block text-sm font-medium mb-1" htmlFor="nothing"> Assign Teacher </label>
             <select  value={teacher}  onChange={(e)=>{setTeacher(e.target.value)}} required className="select select-primary w-full max-w-xs">
               <option>select teacher</option>            
               {allTeachers.map((teach)=>(
@@ -118,7 +118,9 @@ const CreateClassroomForm = () => {
               
             </select>
         </div>
-        <button type="submit" className="btn btn-primary">Create Classroom</button>
+        <button type="submit" className="btn btn-primary">
+          {loading?<span className="loading loading-infinity loading-xs"></span>:
+          'Create Classroom'}</button>
       </form>
      
     </div>

@@ -7,20 +7,20 @@ import CreateClassroomForm from '../components/Principal/ClassroomForm';
 import ClassroomsCard from '../components/Principal/ClassroomsCard';
 import { getAllClassrooms } from '../utils/api';
 import { ClassRooms } from '../recoil/atoms';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { useRecoilState } from 'recoil';
 import RegisterForm from '../components/auth/Register';
 import { Button } from 'react-bootstrap';
 import { FaArrowUp } from 'react-icons/fa';
-import { Teachers } from '../recoil/atoms';
+
 
 const PrincipalDashboard = () => {
   const [classroom,setClassrooms]=useRecoilState(ClassRooms);
   
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [page,setpage]=useState();
-  console.log(classroom);
-  let obj=classroom[0];
+  
+  
   
   useEffect( () => {
     const classrooms=async()=>{
@@ -54,7 +54,7 @@ const PrincipalDashboard = () => {
     classroom.map((room) => (
       <ClassroomsCard
         key={room._id} // Add a unique key for each item
-        name={"room.name"}
+        name={room.name}
         teacher={room.teacher}
         students={room.students}
       />

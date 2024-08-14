@@ -9,7 +9,7 @@ function ClassroomsCard({name,teacher,students}) {
     
     <div className='flex justify-between '>
       <p className='mr-4'>Teacher: </p>
-      <h2>{teacher?.email ||"None"}</h2>      
+      <h2>{teacher?.name ||"None"}</h2>      
     </div>
     <div className='flex justify-between'>
       <p className='mr-4'>Students :  </p>
