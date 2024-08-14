@@ -5,19 +5,13 @@ import User from '../models/User.js';
 export const createClassroom = async (req, res) => {
   try {
     const { name, schedule, teacherName } = req.body;
-    
     const teacher = await User.findOne({ name: teacherName });
-    
-   
-    
-
     const newClassroom = new Classroom({ name, schedule ,teacher:teacher._id});
     await newClassroom.save();
     await User.updateOne(
       { _id: teacher._id },
       { $set: { classroom: newClassroom._id } } //if tachers aleaedy assigned the classroom replaced by new clasrrom
     );
-    
     return res.status(201).json({ msg: 'Classroom created successfully', classroom: newClassroom });
   } catch (error) {
     console.log("error inr createclassroom conrotller ",error.message);
