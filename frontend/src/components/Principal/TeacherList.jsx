@@ -32,7 +32,7 @@ const TeacherList = () => {
     try {
       await axios.delete(`${backend_url}/api/teachers/${id}`, {
         headers: {
-          Authorization: ` ${localStorage.getItem("autToken")}`, // Add token for authentication
+          Authorization: ` ${localStorage.getItem("authToken")}`, // Add token for authentication
         },
       });
       setTeachers(teachers.filter((teacher) => teacher._id !== id));
