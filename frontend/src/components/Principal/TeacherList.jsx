@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-import { backend_url } from '../../config';
-import { Modal, Button, Table } from 'react-bootstrap';
-import { useRecoilState } from 'recoil';
-import { Teachers } from '../../recoil/atoms';
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import { backend_url } from "../../config";
+import { Modal, Button, Table } from "react-bootstrap";
+import { useRecoilState } from "recoil";
+import { Teachers } from "../../recoil/atoms";
 
 const TeacherList = () => {
   const [teachers, setTeachers] = useRecoilState(Teachers);
@@ -16,12 +16,12 @@ const TeacherList = () => {
       try {
         const response = await axios.get(`${backend_url}/api/teachers`, {
           headers: {
-            'Authorization': `${localStorage.getItem('authToken')}` // Add token for authentication
-          }
+            Authorization: `${localStorage.getItem("authToken")}`, // Add token for authentication
+          },
         });
         setTeachers(response.data);
       } catch (err) {
-        setError(err.response?.data?.message || 'Something went wrong!');
+        setError(err.response?.data?.message || "Something went wrong!");
       }
     };
 
@@ -32,12 +32,12 @@ const TeacherList = () => {
     try {
       await axios.delete(`${backend_url}/api/teachers/${id}`, {
         headers: {
-          'Authorization': ` ${localStorage.getItem('autToken')}` // Add token for authentication
-        }
+          Authorization: ` ${localStorage.getItem("autToken")}`, // Add token for authentication
+        },
       });
-      setTeachers(teachers.filter(teacher => teacher._id !== id));
+      setTeachers(teachers.filter((teacher) => teacher._id !== id));
     } catch (err) {
-      setError(err.response?.data?.message || 'Failed to delete teacher');
+      setError(err.response?.data?.message || "Failed to delete teacher");
     }
   };
 
@@ -48,17 +48,23 @@ const TeacherList = () => {
 
   const handleEditSubmit = async () => {
     try {
-      await axios.put(`${backend_url}/api/teachers/${selectedTeacher._id}`, selectedTeacher, {
-        headers: {
-          'Authorization': `${localStorage.getItem('authToken')}` // Add token for authentication
+      await axios.put(
+        `${backend_url}/api/teachers/${selectedTeacher._id}`,
+        selectedTeacher,
+        {
+          headers: {
+            Authorization: `${localStorage.getItem("authToken")}`, // Add token for authentication
+          },
         }
-      });
-      setTeachers(teachers.map(teacher => 
-        teacher._id === selectedTeacher._id ? selectedTeacher : teacher
-      ));
+      );
+      setTeachers(
+        teachers.map((teacher) =>
+          teacher._id === selectedTeacher._id ? selectedTeacher : teacher
+        )
+      );
       setShowEditModal(false);
     } catch (err) {
-      setError(err.response?.data?.message || 'Failed to update teacher');
+      setError(err.response?.data?.message || "Failed to update teacher");
     }
   };
 
@@ -80,14 +86,25 @@ const TeacherList = () => {
               <td>{teacher.name}</td>
               <td>{teacher.email}</td>
               <td>
-                <Button onClick={() => handleEditClick(teacher)} variant="warning">Edit</Button>
-                <Button onClick={() => handleDelete(teacher._id)} variant="danger" className="ms-2">Delete</Button>
+                <Button
+                  onClick={() => handleEditClick(teacher)}
+                  variant="warning"
+                >
+                  Edit
+                </Button>
+                <Button
+                  onClick={() => handleDelete(teacher._id)}
+                  variant="danger"
+                  className="ms-2"
+                >
+                  Delete
+                </Button>
               </td>
             </tr>
           ))}
         </tbody>
       </Table>
-      <div> {teachers.length? '':'List is empty'}</div>
+      <div> {teachers.length ? "" : "List is empty"}</div>
 
       {/* Edit Modal */}
       <Modal show={showEditModal} onHide={() => setShowEditModal(false)}>
@@ -99,23 +116,37 @@ const TeacherList = () => {
             <div>
               <form>
                 <div className="mb-3">
-                  <label htmlFor="name" className="form-label">Name</label>
+                  <label htmlFor="name" className="form-label">
+                    Name
+                  </label>
                   <input
                     type="text"
                     id="name"
                     className="form-control"
                     value={selectedTeacher.name}
-                    onChange={(e) => setSelectedTeacher({ ...selectedTeacher, name: e.target.value })}
+                    onChange={(e) =>
+                      setSelectedTeacher({
+                        ...selectedTeacher,
+                        name: e.target.value,
+                      })
+                    }
                   />
                 </div>
                 <div className="mb-3">
-                  <label htmlFor="email" className="form-label">Email</label>
+                  <label htmlFor="email" className="form-label">
+                    Email
+                  </label>
                   <input
                     type="email"
                     id="email"
                     className="form-control"
                     value={selectedTeacher.email}
-                    onChange={(e) => setSelectedTeacher({ ...selectedTeacher, email: e.target.value })}
+                    onChange={(e) =>
+                      setSelectedTeacher({
+                        ...selectedTeacher,
+                        email: e.target.value,
+                      })
+                    }
                   />
                 </div>
               </form>

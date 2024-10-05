@@ -17,8 +17,7 @@ function StudentDashboard() {
     if(!student?.classroom){
       setmessage("please ask Teacher to add in classroom");
     }
-
-  })
+  })  
   
   
 

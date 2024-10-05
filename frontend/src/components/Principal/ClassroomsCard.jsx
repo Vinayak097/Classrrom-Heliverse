@@ -1,31 +1,30 @@
-import React from 'react'
+import React from "react";
 
-function ClassroomsCard({name,teacher,students}) {
-  let count=students.length;
+function ClassroomsCard({ name, teacher, students }) {
+  let count = students.length;
   return (
     <div className="card bg-base-100 min-w-72  shadow-xl">
-  <div className="card-body">
-    <h2 className="card-title">{name? name:"Card title!"}</h2>
-    
-    <div className='flex justify-between '>
-      <p className='mr-4'>Teacher: </p>
-      <h2>{teacher?.name ||"None"}</h2>      
+      <div className="card-body">
+        <h2 className="card-title">{name ? name : "Card title!"}</h2>
+
+        <div className="flex justify-between ">
+          <p className="mr-4">Teacher: </p>
+          <h2>{teacher?.name || "None"}</h2>
+        </div>
+        <div className="flex justify-between">
+          <p className="mr-4">Students : </p>
+          <h2>{count ? count : 0}</h2>
+        </div>
+
+        <div className="card-actions justify-start">
+          <button className="btn btn-outline ">View</button>
+        </div>
+      </div>
     </div>
-    <div className='flex justify-between'>
-      <p className='mr-4'>Students :  </p>
-      <h2>{count? count:0}</h2>      
-    </div>
-    
-    <div className="card-actions justify-start">
-      <button className="btn btn-outline ">View</button>
-    </div>
-  </div>
-</div>
-  )
+  );
 }
 
-export default ClassroomsCard
-
+export default ClassroomsCard;
 
 /*{
 <Card>

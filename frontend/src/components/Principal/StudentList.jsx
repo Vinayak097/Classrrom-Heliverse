@@ -1,12 +1,12 @@
-import React, { useEffect } from 'react'
-import { useState } from 'react';
-import axios from 'axios';
-import { useRecoilState } from 'recoil';
-import { Student } from '../../recoil/atoms';
+import React, { useEffect } from "react";
+import { useState } from "react";
+import axios from "axios";
+import { useRecoilState } from "recoil";
+import { Student } from "../../recoil/atoms";
 
-import { backend_url } from '../../config';
-import { Modal, Button, Table } from 'react-bootstrap';
-function StudentList(){
+import { backend_url } from "../../config";
+import { Modal, Button, Table } from "react-bootstrap";
+function StudentList() {
   const [students, setStudents] = useRecoilState(Student);
   const [selectedStudent, setSelectedStudent] = useState(null);
   const [showEditModal, setShowEditModal] = useState(false);
@@ -16,11 +16,14 @@ function StudentList(){
     const fetchstudents = async () => {
       try {
         const response = await axios.get(`${backend_url}/api/students`, {
-          headers:{'Authorization':localStorage.getItem('authToken')}, // Include cookies in the request
+          headers: { Authorization: localStorage.getItem("authToken") }, 
         });
         setStudents(response.data);
       } catch (error) {
-        console.error('Error fetching students:', error.response ? error.response.data : error.message);
+        console.error(
+          "Error fetching students:",
+          error.response ? error.response.data : error.message
+        );
       }
     };
 
@@ -31,12 +34,12 @@ function StudentList(){
     try {
       await axios.delete(`${backend_url}/api/teachers/${id}`, {
         headers: {
-          'Authorization': ` ${localStorage.getItem('autToken')}` // Add token for authentication
-        }
+          Authorization: ` ${localStorage.getItem("autToken")}`, // Add token for authentication
+        },
       });
-      setStudents(students.filter(students => students._id !== id));
+      setStudents(students.filter((students) => students._id !== id));
     } catch (err) {
-      setError(err.response?.data?.message || 'Failed to delete students');
+      setError(err.response?.data?.message || "Failed to delete students");
     }
   };
 
@@ -47,17 +50,23 @@ function StudentList(){
 
   const handleEditSubmit = async () => {
     try {
-      await axios.put(`${backend_url}/api/teachers/${selectedStudent._id}`, selectedStudent, {
-        headers: {
-          'Authorization': `${localStorage.getItem('authToken')}` // Add token for authentication
+      await axios.put(
+        `${backend_url}/api/teachers/${selectedStudent._id}`,
+        selectedStudent,
+        {
+          headers: {
+            Authorization: `${localStorage.getItem("authToken")}`, // Add token for authentication
+          },
         }
-      });
-      setStudents(students.map(students => 
-        students._id === selectedStudent._id ? selectedStudent : students
-      ));
+      );
+      setStudents(
+        students.map((students) =>
+          students._id === selectedStudent._id ? selectedStudent : students
+        )
+      );
       setShowEditModal(false);
     } catch (err) {
-      setError(err.response?.data?.message || 'Failed to update students');
+      setError(err.response?.data?.message || "Failed to update students");
     }
   };
   return (
@@ -78,16 +87,26 @@ function StudentList(){
               <td>{students.name}</td>
               <td>{students.email}</td>
               <td>
-                <Button onClick={() => handleEditClick(students)} variant="warning">Edit</Button>
-                <Button onClick={() => handleDelete(students._id)} variant="danger" className="ms-2">Delete</Button>
+                <Button
+                  onClick={() => handleEditClick(students)}
+                  variant="warning"
+                >
+                  Edit
+                </Button>
+                <Button
+                  onClick={() => handleDelete(students._id)}
+                  variant="danger"
+                  className="ms-2"
+                >
+                  Delete
+                </Button>
               </td>
             </tr>
           ))}
-          
         </tbody>
       </Table>
-      <div> {students.length? '':'List is empty'}</div>
- 
+      <div> {students.length ? "" : "List is empty"}</div>
+
       {/* Edit Modal */}
       <Modal show={showEditModal} onHide={() => setShowEditModal(false)}>
         <Modal.Header closeButton>
@@ -98,31 +117,42 @@ function StudentList(){
             <div>
               <form>
                 <div className="mb-3">
-                  <label htmlFor="name" className="form-label">Name</label>
+                  <label htmlFor="name" className="form-label">
+                    Name
+                  </label>
                   <input
                     type="text"
                     id="name"
                     className="form-control"
                     value={selectedStudent.name}
-                    onChange={(e) => setSelectedStudent({ ...selectedStudent, name: e.target.value })}
+                    onChange={(e) =>
+                      setSelectedStudent({
+                        ...selectedStudent,
+                        name: e.target.value,
+                      })
+                    }
                   />
                 </div>
                 <div className="mb-3">
-                  <label htmlFor="email" className="form-label">Email</label>
+                  <label htmlFor="email" className="form-label">
+                    Email
+                  </label>
                   <input
                     type="email"
                     id="email"
                     className="form-control"
                     value={selectedStudent.email}
-                    onChange={(e) => setSelectedStudent({ ...selectedStudent, email: e.target.value })}
+                    onChange={(e) =>
+                      setSelectedStudent({
+                        ...selectedStudent,
+                        email: e.target.value,
+                      })
+                    }
                   />
                 </div>
               </form>
             </div>
           )}
-
-          
-          
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={() => setShowEditModal(false)}>
@@ -134,7 +164,7 @@ function StudentList(){
         </Modal.Footer>
       </Modal>
     </div>
-  )
+  );
 }
 
-export default StudentList
+export default StudentList;
