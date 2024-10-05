@@ -1,2 +1,2 @@
-export const backend_url="http://localhost:8000"
+export const backend_url="https://classrrom-heliverse.vercel.app"
 //https://classrrom-heliverse.vercel.app
